@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const UserSchema = require('./login.schema').UserSchema
+const UserSchema = require('../schemas/login.schema').UserSchema
 
 const UserModel = mongoose.model("User", UserSchema);
 
