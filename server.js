@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors')
 const cookieParser = require('cookie-parser');
-const loginRouter = require('./src/routers/loginRouter')
+//const loginRouter = require('./src/routers/loginRouter')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose');
 
@@ -20,9 +20,39 @@ db.on('error', console.error.bind(console, 'Error connecting to mongo db'));
 
 app.use(cors());
 
-app.use('/api/final', loginRouter);
+//app.use('/api/final', loginRouter);
 
 const port = process.env.PORT || 3000;
+
+var { graphqlHTTP } = require('express-graphql');
+var { buildSchema } = require('graphql');
+ 
+// Construct a schema, using GraphQL schema language
+var schema = buildSchema(`
+  type Query {
+    hello: String
+    username: String
+    age: Int
+    admin: Boolean
+  }
+`);
+ 
+// The root provides a resolver function for each API endpoint
+var root = {
+  hello: () => {
+    return 'Hello world!';
+  },
+  username: 'Mikayla',
+  age: 25,
+  admin: true
+};
+
+app.use('/graphql', graphqlHTTP({
+  schema: schema,
+  rootValue: root,
+  graphiql: true,
+}));
+
 app.listen(port, function() {
   console.log("starting at" + port);
 })
