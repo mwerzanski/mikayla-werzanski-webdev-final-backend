@@ -11,7 +11,7 @@ function createUser(user) {
 function findUser(username) {
     return UserModel.findOne({
         username: username
-    }).exec()
+    })
 }
 
 function getAllUsers() {

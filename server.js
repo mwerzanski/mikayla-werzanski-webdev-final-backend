@@ -1,7 +1,8 @@
 const express = require('express');
 const cors = require('cors')
 const cookieParser = require('cookie-parser');
-//const loginRouter = require('./src/routers/loginRouter')
+const loginRouter = require('./src/routers/loginRouter')
+const menuRouter = require('./src/routers/menuRouter')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose');
 
@@ -10,17 +11,18 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-const mongoDBEndpoint = process.env.MONGODB_URI || 'mongodb://127.0.0.1/pokemon_app';
+const mongoDBEndpoint = process.env.MONGODB_URI || 'mongodb://127.0.0.1/final';
 mongoose.connect(mongoDBEndpoint, { useNewUrlParser: true});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Error connecting to mongo db'));
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({extended: true}));
-// app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(cookieParser());
 
 app.use(cors());
 
-//app.use('/api/final', loginRouter);
+app.use('/api/final/users', loginRouter);
+app.use('/api/final/menus', menuRouter);
 
 const port = process.env.PORT || 3000;
 
@@ -30,7 +32,6 @@ var { buildSchema } = require('graphql');
 // Construct a schema, using GraphQL schema language
 var schema = buildSchema(`
   type Query {
-    hello: String
     username: String
     age: Int
     admin: Boolean
@@ -39,9 +40,6 @@ var schema = buildSchema(`
  
 // The root provides a resolver function for each API endpoint
 var root = {
-  hello: () => {
-    return 'Hello world!';
-  },
   username: 'Mikayla',
   age: 25,
   admin: true
