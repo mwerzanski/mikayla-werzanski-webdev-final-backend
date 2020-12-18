@@ -1,10 +1,14 @@
 const mongoose = require('mongoose');
 
-exports.MenuItemSchema = new mongoose.Schema({
-    title: {
-        type: String, unique: true
+exports.MenuItemSchema = new mongoose.Schema(
+    {
+        title: {
+            type: String,
+            unique: true,
+        },
+        text: String,
     },
-    text: String
-}, {
-    collection: 'menuItems'
-})
+    {
+        collection: 'menuItems',
+    }
+);

@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
-const MenuItemSchema = require('../schemas/menuItem.schema').MenuItemSchema
+const MenuItemSchema = require('../schemas/menuItem.schema').MenuItemSchema;
 
-const MenuItemModel = mongoose.model("MenuItem", MenuItemSchema);
+const MenuItemModel = mongoose.model('MenuItem', MenuItemSchema);
 
 function createMenuItem(menuItem) {
     return MenuItemModel.create(menuItem);
@@ -10,8 +10,8 @@ function createMenuItem(menuItem) {
 
 function findMenuItem(_id) {
     return MenuItemModel.findOne({
-        _id: _id
-    })
+        _id: _id,
+    });
 }
 
 function getAllMenuItems() {
@@ -28,8 +28,8 @@ function updateMenuItem(menuItemTitle, menuUpdate) {
 
 module.exports = {
     createMenuItem,
-    findMenuItem, 
+    findMenuItem,
     getAllMenuItems,
     deleteMenuItem,
     updateMenuItem,
-}
+};

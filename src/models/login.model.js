@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
-const UserSchema = require('../schemas/login.schema').UserSchema
+const UserSchema = require('../schemas/login.schema').UserSchema;
 
-const UserModel = mongoose.model("User", UserSchema);
+const UserModel = mongoose.model('User', UserSchema);
 
 function createUser(user) {
     return UserModel.create(user);
@@ -10,14 +10,14 @@ function createUser(user) {
 
 function findUser(username) {
     return UserModel.findOne({
-        username: username
-    })
+        username: username,
+    });
 }
 
 function findUserFromId(id) {
     return UserModel.findOne({
-        _id: id
-    })
+        _id: id,
+    });
 }
 
 function getAllUsers() {
@@ -30,8 +30,8 @@ function updateUser(_id, userUpdate) {
 
 module.exports = {
     findUser,
-    createUser, 
+    createUser,
     getAllUsers,
     findUserFromId,
-    updateUser
-}
+    updateUser,
+};
