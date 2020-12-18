@@ -8,9 +8,9 @@ function createMenu(menuList) {
     return MenuModel.create(menuList);
 }
 
-function findMenu(_id) {
+function findMenu(username) {
     return MenuModel.findOne({
-        _id: _id
+        username: username
     })
 }
 
@@ -18,8 +18,18 @@ function getAllMenus() {
     return MenuModel.find().exec();
 }
 
+function deleteAllMenus() {
+    return MenuModel.deleteMany().exec();
+}
+
+function updateMenuItem(username, menuUpdate) {
+    return MenuModel.findOneAndUpdate(username, menuUpdate);
+}
+
 module.exports = {
     createMenu,
     findMenu, 
     getAllMenus,
+    deleteAllMenus,
+    updateMenuItem,
 }

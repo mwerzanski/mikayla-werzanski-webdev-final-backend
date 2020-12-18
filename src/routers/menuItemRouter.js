@@ -1,9 +1,9 @@
 const express = require('express');
-const { getAllMenus, createMenu, findMenu, deleteAllMenus, updateMenuItem } = require('../models/menu.model');
+const { getAllMenuItems, createMenuItem, findMenuItem, deleteMenuItem, updateMenuItem } = require('../models/menuItem.model');
 const router = express.Router();
 
 router.get('/', function (req, res) {
-    return getAllMenus()
+    return getAllMenuItems()
         .then(function (menuResponse) {
             res.status(200).send(menuResponse);
         }, function (error) {
@@ -11,29 +11,19 @@ router.get('/', function (req, res) {
         })
 })
 
-router.get('/:username', function (req, res) {
-    const username = req.params.username
-
-    findMenu(username).then(function (menuResponse) {
-        return res.status(200).send(menuResponse)
-    }, function(error) {
-        return res.status(404).send(error)
-    })
-})
-
 router.post('/', function (req, res) {
-    const newMenu = req.body;
-    createMenu(newMenu).then(function(menuResponse) {
+    const newItem = req.body;
+    createMenuItem(newItem).then(function(menuResponse) {
         return res.status(200).send(menuResponse)
     }, function(error) {
         return res.status(404).send(error)
     })
 })
 
-router.put('/:username', function (req, res) {
-    const username = req.params.username;
+router.put('/:title', function (req, res) {
+    const updateItem = req.params.title;
     const updated = req.body;
-    updateMenuItem(username, updated).then(function(menuResponse) {
+    updateMenuItem(updateItem, updated).then(function(menuResponse) {
         return res.status(200).send(menuResponse)
     }, function(error) {
         return res.status(404).send(error)
@@ -41,7 +31,8 @@ router.put('/:username', function (req, res) {
 })
 
 router.delete('/', function (req, res) {
-    deleteAllMenus().then(function(menuResponse) {
+    const deleteItem = req.body;
+    deleteMenuItem(deleteItem).then(function(menuResponse) {
         return res.status(200).send(menuResponse)
     }, function(error) {
         return res.status(404).send(error)

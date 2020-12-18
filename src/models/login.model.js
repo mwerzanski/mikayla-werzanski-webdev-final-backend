@@ -14,12 +14,24 @@ function findUser(username) {
     })
 }
 
+function findUserFromId(id) {
+    return UserModel.findOne({
+        _id: id
+    })
+}
+
 function getAllUsers() {
     return UserModel.find().exec();
+}
+
+function updateUser(_id, userUpdate) {
+    return UserModel.findOneAndUpdate(_id, userUpdate);
 }
 
 module.exports = {
     findUser,
     createUser, 
     getAllUsers,
+    findUserFromId,
+    updateUser
 }

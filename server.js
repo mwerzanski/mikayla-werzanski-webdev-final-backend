@@ -3,6 +3,7 @@ const cors = require('cors')
 const cookieParser = require('cookie-parser');
 const loginRouter = require('./src/routers/loginRouter')
 const menuRouter = require('./src/routers/menuRouter')
+const menuItemRouter = require('./src/routers/menuItemRouter')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose');
 
@@ -23,6 +24,7 @@ app.use(cors());
 
 app.use('/api/final/users', loginRouter);
 app.use('/api/final/menus', menuRouter);
+app.use('/api/final/menuItems', menuItemRouter);
 
 const port = process.env.PORT || 3000;
 

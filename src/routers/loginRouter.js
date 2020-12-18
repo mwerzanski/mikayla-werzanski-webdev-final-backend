@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllUsers, createUser, findUser } = require('../models/login.model');
+const { getAllUsers, createUser, findUser, findUserFromId, updateUser } = require('../models/login.model');
 const router = express.Router();
 const bcrypt = require('bcryptjs')
 
@@ -27,6 +27,16 @@ router.get('/:username/:password', function (req, res) {
     })
 })
 
+router.get('/:userId', function (req, res) {
+    const userId = req.params.userId
+
+    findUserFromId(userId).then(function (userResponse) {
+        return res.status(200).send(userResponse)
+    }, function(error) {
+        return res.status(404).send(error)
+    })
+})
+
 router.post('/', function (req, res) {
     const newUser = req.body;
     const password = String(newUser.password) // have to cast to string
@@ -39,10 +49,13 @@ router.post('/', function (req, res) {
 })
 
 router.put('/:id', function (req, res) {
-})
-
-router.delete('/:id', function (req, res) {
-
+    const userId = req.params.id;
+    const updated = req.body;
+    updateUser(userId, updated).then(function(userResponse) {
+        return res.status(200).send(userResponse)
+    }, function(error) {
+        return res.status(404).send(error)
+    })
 })
 
 module.exports = router;
