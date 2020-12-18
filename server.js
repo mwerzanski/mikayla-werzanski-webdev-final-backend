@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-const mongoDBEndpoint = process.env.MONGODB_URI || 'mongodb://127.0.0.1/final';
+const mongoDBEndpoint = "mongodb+srv://mwerzanski:Neworleans17!@webdev.7x1yt.mongodb.net/<dbname>?retryWrites=true&w=majority";
 mongoose.connect(mongoDBEndpoint, { useNewUrlParser: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Error connecting to mongo db'));
